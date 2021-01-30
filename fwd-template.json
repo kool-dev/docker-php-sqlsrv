@@ -1,0 +1,29 @@
+{
+    "output": ".",
+    "builds": [
+        {
+            "name": "7.4-nginx-sqlsrv",
+            "data": {
+                "from": "kooldev/php:7.4-nginx"
+            },
+            "files": [
+                {
+                    "name": "Dockerfile",
+                    "path": "template/Dockerfile"
+                }
+            ]
+        },
+        {
+            "name": "7.4-nginx-sqlsrv-prod",
+            "data": {
+                "from": "kooldev/php:7.4-nginx-prod"
+            },
+            "files": [
+                {
+                    "name": "Dockerfile",
+                    "path": "template/Dockerfile"
+                }
+            ]
+        }
+    ]
+}

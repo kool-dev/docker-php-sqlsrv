@@ -1,0 +1,7 @@
+scripts:
+  template:
+    - kool docker fireworkweb/fwd:v1.0 fwd template
+  build:
+    - kool run template
+    - docker build --pull -t kooldev/php:7.4-nginx-sqlsrv 7.4-nginx-sqlsrv
+    - docker build --pull -t kooldev/php:7.4-nginx-sqlsrv-prod 7.4-nginx-sqlsrv-prod
