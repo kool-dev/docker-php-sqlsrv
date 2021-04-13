@@ -1,0 +1,40 @@
+name: CI/CD
+
+on: [push, workflow_dispatch]
+
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          docker build --pull -t kooldev/php:7.4-nginx-sqlsrv 7.4-nginx-sqlsrv
+          docker build --pull -t kooldev/php:7.4-nginx-sqlsrv-prod 7.4-nginx-sqlsrv-prod
+
+      - name: Tests
+        run: |
+          docker run kooldev/php:7.4-nginx-sqlsrv php -r "extension_loaded('sqlsrv') or die(1);"
+          docker run kooldev/php:7.4-nginx-sqlsrv php -r "extension_loaded('pdo_sqlsrv') or die(1);"
+          docker run kooldev/php:7.4-nginx-sqlsrv-prod php -r "extension_loaded('sqlsrv') or die(1);"
+          docker run kooldev/php:7.4-nginx-sqlsrv-prod php -r "extension_loaded('pdo_sqlsrv') or die(1);"
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php-sqlsrv'
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push to DockerHub
+        if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php-sqlsrv'
+        run: |
+          docker push kooldev/php:7.4-nginx-sqlsrv
+          docker push kooldev/php:7.4-nginx-sqlsrv-prod
