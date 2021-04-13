@@ -28,13 +28,13 @@ jobs:
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
-        if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php-sqlsrv'
+        if: github.ref == 'refs/heads/main' && github.repository == 'kool-dev/docker-php-sqlsrv'
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push to DockerHub
-        if: github.ref == 'refs/heads/master' && github.repository == 'kool-dev/docker-php-sqlsrv'
+        if: github.ref == 'refs/heads/main' && github.repository == 'kool-dev/docker-php-sqlsrv'
         run: |
           docker push kooldev/php:7.4-nginx-sqlsrv
           docker push kooldev/php:7.4-nginx-sqlsrv-prod
