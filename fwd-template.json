@@ -24,6 +24,30 @@
                     "path": "template/Dockerfile"
                 }
             ]
+        },
+        {
+            "name": "8.1-nginx-sqlsrv",
+            "data": {
+                "from": "kooldev/php:8.1-nginx"
+            },
+            "files": [
+                {
+                    "name": "Dockerfile",
+                    "path": "template/Dockerfile"
+                }
+            ]
+        },
+        {
+            "name": "8.1-nginx-sqlsrv-prod",
+            "data": {
+                "from": "kooldev/php:8.1-nginx-prod"
+            },
+            "files": [
+                {
+                    "name": "Dockerfile",
+                    "path": "template/Dockerfile"
+                }
+            ]
         }
     ]
 }
