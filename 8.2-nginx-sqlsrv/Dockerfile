@@ -1,4 +1,4 @@
-FROM kooldev/php:7.4-nginx-prod
+FROM kooldev/php:8.2-nginx
 
 # https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#alpine17
 

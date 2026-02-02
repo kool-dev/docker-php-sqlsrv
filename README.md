@@ -6,15 +6,25 @@ This image is based on [kooldev/php](https://github.com/kool-dev/docker-php), pl
 
 ## Available Tags
 
-### 7.4
-
-- [7.4-nginx-sqlsrv](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/7.4-nginx-sqlsrv/Dockerfile)
-- [7.4-nginx-sqlsrv-prod](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/7.4-nginx-sqlsrv-prod/Dockerfile)
-
 ### 8.1
 
 - [8.1-nginx-sqlsrv](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.1-nginx-sqlsrv/Dockerfile)
 - [8.1-nginx-sqlsrv-prod](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.1-nginx-sqlsrv-prod/Dockerfile)
+
+### 8.2
+
+- [8.2-nginx-sqlsrv](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.2-nginx-sqlsrv/Dockerfile)
+- [8.2-nginx-sqlsrv-prod](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.2-nginx-sqlsrv-prod/Dockerfile)
+
+### 8.3
+
+- [8.3-nginx-sqlsrv](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.3-nginx-sqlsrv/Dockerfile)
+- [8.3-nginx-sqlsrv-prod](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.3-nginx-sqlsrv-prod/Dockerfile)
+
+### 8.4
+
+- [8.4-nginx-sqlsrv](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.4-nginx-sqlsrv/Dockerfile)
+- [8.4-nginx-sqlsrv-prod](https://github.com/kool-dev/docker-php-sqlsrv/blob/main/8.4-nginx-sqlsrv-prod/Dockerfile)
 
 ## Environment Variables
 
