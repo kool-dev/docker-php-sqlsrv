@@ -7,8 +7,6 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [docker-php-updated]
-  schedule:
-    - cron: '17 6 * * 1'
 
 permissions:
   contents: read
