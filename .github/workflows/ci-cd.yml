@@ -2,6 +2,7 @@ name: CI/CD
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
   repository_dispatch:
@@ -11,6 +12,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   DOCKER_BUILDKIT: 1
