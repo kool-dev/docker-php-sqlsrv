@@ -49,3 +49,32 @@ After any changes, we need to run `kool run template` to parse the templates and
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Rebuilds and validation
+
+CI rebuilds on `docker-php-updated` repository dispatches and every Monday as a
+fallback, using `docker build --pull` to refresh the parent image. Dispatch
+delivery still requires the upstream PHP repository's dispatch credentials.
+Only builds on this repository's `main` branch publish images; PRs do not.
+
+To validate a local build:
+
+```sh
+python3 tests/check-generated.py
+docker build --pull -t sqlsrv-test 8.4-nginx-sqlsrv
+bash tests/test-image.sh sqlsrv-test 8.4-nginx-sqlsrv/Dockerfile
+```
+
+The smoke test checks PHP against the freshly pulled parent, both SQLSRV
+extensions, PDO registration, and native ODBC 17 loading through failed
+loopback connections. It does not test authentication, queries, TLS, or a live
+SQL Server. SQLSRV/PDO_SQLSRV are pinned to 5.12.0 for PHP 8.1/8.2 and 5.13.3
+for newer variants because 5.13 requires PHP 8.3 or later.
+
+These images remain **amd64-only**: the template downloads Microsoft's x64
+ODBC 17 APKs with `--allow-untrusted` and no independent checksum/signature
+verification. Driver modernization and ARM support require separate vendor
+compatibility and provenance validation. PHP 8.1 is retained for compatibility,
+but is upstream EOL; successful builds do not restore security support.
+After merging, maintainers must publish and verify every supported tag's
+runtime version and digest before considering stale published images fixed.
