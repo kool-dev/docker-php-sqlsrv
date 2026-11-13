@@ -4,7 +4,8 @@
         {
             "name": "8.1-nginx-sqlsrv",
             "data": {
-                "from": "kooldev/php:8.1-nginx"
+                "from": "kooldev/php:8.1-nginx",
+                "version": "8.1"
             },
             "files": [
                 {
@@ -16,7 +17,8 @@
         {
             "name": "8.1-nginx-sqlsrv-prod",
             "data": {
-                "from": "kooldev/php:8.1-nginx-prod"
+                "from": "kooldev/php:8.1-nginx-prod",
+                "version": "8.1"
             },
             "files": [
                 {
@@ -28,7 +30,8 @@
         {
             "name": "8.2-nginx-sqlsrv",
             "data": {
-                "from": "kooldev/php:8.2-nginx"
+                "from": "kooldev/php:8.2-nginx",
+                "version": "8.2"
             },
             "files": [
                 {
@@ -40,7 +43,8 @@
         {
             "name": "8.2-nginx-sqlsrv-prod",
             "data": {
-                "from": "kooldev/php:8.2-nginx-prod"
+                "from": "kooldev/php:8.2-nginx-prod",
+                "version": "8.2"
             },
             "files": [
                 {
@@ -52,7 +56,8 @@
         {
             "name": "8.3-nginx-sqlsrv",
             "data": {
-                "from": "kooldev/php:8.3-nginx"
+                "from": "kooldev/php:8.3-nginx",
+                "version": "8.3"
             },
             "files": [
                 {
@@ -64,7 +69,8 @@
         {
             "name": "8.3-nginx-sqlsrv-prod",
             "data": {
-                "from": "kooldev/php:8.3-nginx-prod"
+                "from": "kooldev/php:8.3-nginx-prod",
+                "version": "8.3"
             },
             "files": [
                 {
@@ -76,7 +82,8 @@
         {
             "name": "8.4-nginx-sqlsrv",
             "data": {
-                "from": "kooldev/php:8.4-nginx"
+                "from": "kooldev/php:8.4-nginx",
+                "version": "8.4"
             },
             "files": [
                 {
@@ -88,7 +95,8 @@
         {
             "name": "8.4-nginx-sqlsrv-prod",
             "data": {
-                "from": "kooldev/php:8.4-nginx-prod"
+                "from": "kooldev/php:8.4-nginx-prod",
+                "version": "8.4"
             },
             "files": [
                 {

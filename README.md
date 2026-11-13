@@ -63,7 +63,8 @@ Only builds on this repository's `main` branch publish images; PRs do not.
 To validate a local build:
 
 ```sh
-python3 tests/check-generated.py
+docker run --rm -v "$PWD:/app" fireworkweb/fwd:v1.0 fwd template
+git diff --exit-code
 docker build --pull -t sqlsrv-test 8.4-nginx-sqlsrv
 bash tests/test-image.sh sqlsrv-test 8.4-nginx-sqlsrv/Dockerfile
 ```
@@ -72,7 +73,10 @@ The smoke test checks PHP against the freshly pulled parent, both SQLSRV
 extensions, PDO registration, and native ODBC 17 loading through failed
 loopback connections. It does not test authentication, queries, TLS, or a live
 SQL Server. SQLSRV/PDO_SQLSRV are pinned to 5.12.0 for PHP 8.1/8.2 and 5.13.3
-for newer variants because 5.13 requires PHP 8.3 or later.
+for newer variants because 5.13 requires PHP 8.3 or later. The Blade template
+selects these literal package versions from each build's explicit PHP version
+in `fwd-template.json`; CI regenerates with the real FWD engine and checks for
+drift.
 
 These images remain **amd64-only**: the template downloads Microsoft's x64
 ODBC 17 APKs with `--allow-untrusted` and no independent checksum/signature
