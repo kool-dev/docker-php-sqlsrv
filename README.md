@@ -49,3 +49,39 @@ After any changes, we need to run `kool run template` to parse the templates and
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Rebuilds and validation
+
+CI rebuilds on `docker-php-updated` repository dispatches, using
+`docker build --pull` to refresh the parent image. The upstream PHP repository's
+scheduled parent rebuilds propagate here after successful publication; this
+repository has no separate rebuild cron. Dispatch delivery requires the upstream
+PHP repository's dispatch credentials and recipient configuration. If delivery
+fails, recover with this workflow's manual `workflow_dispatch` on `main`.
+Only builds on this repository's `main` branch publish images; PRs do not.
+
+To validate a local build:
+
+```sh
+docker run --rm -v "$PWD:/app" fireworkweb/fwd:v1.0 fwd template
+git diff --exit-code
+docker build --pull -t sqlsrv-test 8.4-nginx-sqlsrv
+bash tests/test-image.sh sqlsrv-test 8.4-nginx-sqlsrv/Dockerfile
+```
+
+The smoke test checks PHP against the freshly pulled parent, both SQLSRV
+extensions, PDO registration, and native ODBC 17 loading through failed
+loopback connections. It does not test authentication, queries, TLS, or a live
+SQL Server. SQLSRV/PDO_SQLSRV are pinned to 5.12.0 for PHP 8.1/8.2 and 5.13.3
+for newer variants because 5.13 requires PHP 8.3 or later. The Blade template
+selects these literal package versions from each build's explicit PHP version
+in `fwd-template.json`; CI regenerates with the real FWD engine and checks for
+drift.
+
+These images remain **amd64-only**: the template downloads Microsoft's x64
+ODBC 17 APKs with `--allow-untrusted` and no independent checksum/signature
+verification. Driver modernization and ARM support require separate vendor
+compatibility and provenance validation. PHP 8.1 is retained for compatibility,
+but is upstream EOL; successful builds do not restore security support.
+After merging, maintainers must publish and verify every supported tag's
+runtime version and digest before considering stale published images fixed.

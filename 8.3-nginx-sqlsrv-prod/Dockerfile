@@ -15,7 +15,8 @@ RUN set -xe \
     && docker-php-ext-install pdo_dblib \
     && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
     && docker-php-ext-install pdo_odbc \
-    && pecl install sqlsrv pdo_sqlsrv \
+    # SQLSRV 5.13 requires PHP >= 8.3; retain 5.12 for the older variants.
+    && pecl install sqlsrv-5.13.3 pdo_sqlsrv-5.13.3 \
     && echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/10_pdo_sqlsrv.ini \
     && echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/00_sqlsrv.ini \
     # && docker-php-ext-enable --ini-name 30-sqlsrv.ini sqlsrv \
