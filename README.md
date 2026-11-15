@@ -53,12 +53,21 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Rebuilds and validation
 
 CI rebuilds on `docker-php-updated` repository dispatches, using
-`docker build --pull` to refresh the parent image. The upstream PHP repository's
+an explicit parent pull once per build, retaining its ID for build ancestry and
+runtime checks instead of pulling again during tests. The upstream PHP repository's
 scheduled parent rebuilds propagate here after successful publication; this
 repository has no separate rebuild cron. Dispatch delivery requires the upstream
 PHP repository's dispatch credentials and recipient configuration. If delivery
 fails, recover with this workflow's manual `workflow_dispatch` on `main`.
 Only builds on this repository's `main` branch publish images; PRs do not.
+
+The shared Bash/`jq` builder, tested-parent check, staging and publisher live in
+[kool-dev/kool](https://github.com/kool-dev/kool/tree/main/.github/actions),
+pinned to one immutable commit. Eight native amd64 jobs build/test once, then
+stage exact tested IDs and push digests. A single publisher validates the complete
+current run/attempt before updating stable tags. Fork/feature runs cannot publish.
+Rerun **all jobs** after a failed release; there is no cross-attempt reuse or
+resume workflow. Stable tag updates are sequential, not atomic.
 
 To validate a local build:
 
