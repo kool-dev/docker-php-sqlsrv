@@ -61,13 +61,10 @@ PHP repository's dispatch credentials and recipient configuration. If delivery
 fails, recover with this workflow's manual `workflow_dispatch` on `main`.
 Only builds on this repository's `main` branch publish images; PRs do not.
 
-The shared Bash/`jq` builder, tested-parent check, staging and publisher live in
-[kool-dev/action](https://github.com/kool-dev/action/blob/master/image-ci.md),
-pinned to one immutable commit. Eight native amd64 jobs build/test once, then
-stage exact tested IDs and push digests. A single publisher validates the complete
-current run/attempt before updating stable tags. Fork/feature runs cannot publish.
-Rerun **all jobs** after a failed release; there is no cross-attempt reuse or
-resume workflow. Stable tag updates are sequential, not atomic.
+CI uses [shared Bash/`jq` actions](https://github.com/kool-dev/action/blob/master/image-ci.md),
+pinned in the workflow. Eight native amd64 jobs build/test once; one publisher
+validates and promotes their tested digests. See the shared release rules for
+publication guards and retry behavior.
 
 To validate a local build:
 
