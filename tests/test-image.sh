@@ -3,8 +3,11 @@ set -euo pipefail
 
 image="${1:?image required}"
 dockerfile="${2:?Dockerfile required}"
-parent="$(awk '$1 == "FROM" { print $2; exit }' "$dockerfile")"
-docker pull "$parent"
+parent="${3:-}"
+if [[ -z "$parent" ]]; then
+    parent="$(awk '$1 == "FROM" { print $2; exit }' "$dockerfile")"
+    docker pull "$parent"
+fi
 expected="$(docker run --rm --network none --entrypoint php "$parent" -r 'echo PHP_VERSION;')"
 
 docker run --rm -i --network none --entrypoint php \
